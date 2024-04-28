@@ -43,11 +43,11 @@ fun PantallaTareas(tareaViewModel: TareasViewModel, uiState: TareasUIState, onCl
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun Editor(modifier: Modifier,tareaViewModel: TareasViewModel){
-    Row(modifier = modifier.fillMaxWidth().padding(20.dp).height(150.dp)) {
+    Row(modifier = modifier.fillMaxWidth().padding(20.dp).height(70.dp)) {
         TextField(
             value = tareaViewModel.valorTextFieldNuevaTarea.value,
             singleLine = true,
-            modifier = modifier.padding(16.dp).weight(1f).fillMaxSize(),
+            modifier = modifier.padding(10.dp).weight(1f).fillMaxSize(),
             //onValueChange = segundoTextEditor,
             onValueChange = { tareaViewModel.cambiarValorTextFieldNuevaTarea(it) },
             label = { Text("Nombre nueva tarea") },
@@ -88,11 +88,11 @@ private fun TextoActualizandose(
             modifier = modifier.background(Color.Yellow).fillMaxWidth()
         )
         Text(
-            text = "Resumen:\n"+uiState.TareasAdquiridas,
+            text = "Resumen:\n"+uiState.tareasAdquiridas,
             modifier = modifier.background(Color.White).fillMaxWidth()
         )
         Text(
-            text = "Total horas: "+uiState.accionUltima,
+            text = "Total horas: "+uiState.totalHoras,
             modifier = modifier.background(Color.Yellow).fillMaxWidth()
         )
     }
@@ -121,14 +121,14 @@ private fun TareasScroll(
     tareas: ArrayList<Tarea>,
     tareaViewModel: TareasViewModel,
 ) {
-    LazyVerticalGrid(columns = GridCells.Fixed(2),
-        modifier = modifier.height(300.dp)
-            .fillMaxWidth()
+    LazyVerticalGrid(columns = GridCells.Fixed(3),
+        modifier = modifier
+            .fillMaxWidth().height(400.dp)
     ) {
         items(tareas) { tarea ->
             Card(
                 modifier = modifier
-                    .padding(5.dp)
+                    .padding(5.dp).height(200.dp)
 
             ) {
                 Text(
@@ -136,14 +136,14 @@ private fun TareasScroll(
                     modifier = Modifier
                         .background(Color.Yellow)
                         .fillMaxWidth()
-                        .padding(20.dp)
+                        .padding(12.dp)
                 )
                 Text(
                     text = "€/hora: ${tarea.precio.toString()}",
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(Color.Cyan)
-                        .padding(20.dp)
+                        .padding(12.dp)
                 )
                 Row(          modifier = Modifier
                     .fillMaxWidth(),

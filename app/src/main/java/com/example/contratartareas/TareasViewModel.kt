@@ -33,9 +33,9 @@ class TareasViewModel: ViewModel()  {
         }
 
             tareaHora.cantidad++
-            var ultimaAccion="Se añade 1 hora a ${tareaHora.tarea.nombre}"
-            
+        var ultimaAccion="Se añade 1 hora a ${tareaHora.tarea.nombre}"
 
+        cambiarTodoUIState(ultimaAccion)
     }
 
     fun cambiarValorTextFieldNuevaTarea(it: String) {
@@ -58,7 +58,18 @@ class TareasViewModel: ViewModel()  {
         cambiarSoloAccionUltimaUIState("Añadida la tarea: ${nuevoNombre}")
         valorTextFieldNuevaTarea.value="" // Lo vaciamos
     }
+    private fun cambiarTodoUIState(accionUltima: String) {
+       var totalHoras = tareasHoras.sumOf {  it.cantidad}
+        val concatenacion = tareasHoras.joinToString("\n") { "La tarea: "+it.tarea.nombre+ " Precio: "+it.tarea.precio + " Horas: "+it.cantidad }
 
+        _uiState.update { currentState ->
+            currentState.copy(
+                accionUltima = accionUltima,
+                tareasAdquiridas = concatenacion,
+                totalHoras = totalHoras.toString(),
+            )
+        }
+    }
 
     private fun cambiarSoloAccionUltimaUIState(texto: String) {
         _uiState.update { currentState ->
